@@ -1,0 +1,4 @@
+﻿  balExSource.cpp
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\balencedtree\balencedtree\balexsource.cpp(56): warning C4101: 'choice' :참조되지 않은 지역 변수입니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\balencedtree\balencedtree\balexsource.cpp(56): warning C4101: 'item' :참조되지 않은 지역 변수입니다.
+  balencedTree.vcxproj -> C:\Users\moidp\SynologyDrive\sangwook\Programing\datastruct\source\balencedTree\Debug\balencedTree.exe
