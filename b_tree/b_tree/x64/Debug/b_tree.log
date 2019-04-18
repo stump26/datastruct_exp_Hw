@@ -1,0 +1,59 @@
+﻿  source.cpp
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(7): error C2143: 구문 오류: ']'이(가) ';' 앞에 없습니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(7): error C2059: 구문 오류: '-'
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(7): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(8): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(8): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(8): error C2143: 구문 오류: ')'이(가) ';' 앞에 없습니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(8): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(8): error C2059: 구문 오류: ']'
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(9): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(9): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(9): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(40): error C2039: 'son': '_node'의 멤버가 아닙니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(6): note: '_node' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(47): error C2059: 구문 오류: '/'
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(49): error C2143: 구문 오류: ')'이(가) ';' 앞에 없습니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(49): error C2660: 'BTree::copy': 함수는 3개의 매개 변수를 사용하지 않습니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(36): note: 'BTree::copy' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(49): error C2059: 구문 오류: ')'
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(53): error C2561: 'BTree::split': 함수는 값을 반환해야 합니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(44): note: 'BTree::split' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(56): error C2143: 구문 오류: ')'이(가) ';' 앞에 없습니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(56): error C2660: 'BTree::copy': 함수는 3개의 매개 변수를 사용하지 않습니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(36): note: 'BTree::copy' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(56): error C2059: 구문 오류: ')'
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(58): error C2039: 'son': '_node'의 멤버가 아닙니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(6): note: '_node' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(60): error C2561: 'BTree::split': 함수는 값을 반환해야 합니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(44): note: 'BTree::split' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(63): error C2143: 구문 오류: ')'이(가) ';' 앞에 없습니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(63): error C2660: 'BTree::copy': 함수는 3개의 매개 변수를 사용하지 않습니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(36): note: 'BTree::copy' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(63): error C2059: 구문 오류: ')'
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(67): error C2561: 'BTree::split': 함수는 값을 반환해야 합니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(44): note: 'BTree::split' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(72): error C2039: 'son': '_node'의 멤버가 아닙니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(6): note: '_node' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(75): error C2039: 'son': '_node'의 멤버가 아닙니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(6): note: '_node' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(80): error C2039: 'father': '_node'의 멤버가 아닙니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(6): note: '_node' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(81): error C2039: 'father': '_node'의 멤버가 아닙니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(6): note: '_node' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(92): error C2039: 'father': '_node'의 멤버가 아닙니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(6): note: '_node' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(94): error C2143: 구문 오류: ')'이(가) ';' 앞에 없습니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(94): error C2059: 구문 오류: ')'
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(101): error C2039: 'father': '_node'의 멤버가 아닙니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(6): note: '_node' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(104): warning C4552: '<': 식의 결과가 사용되지 않습니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(104): error C2429: 언어 기능 'if/switch의 init-statements'에 컴파일러 플래그 '/std:c++17'이(가) 필요합니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(104): error C2059: 구문 오류: ')'
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(104): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(106): error C2561: 'BTree::insleaf': 함수는 값을 반환해야 합니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(86): note: 'BTree::insleaf' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(113): error C2039: 'son': '_node'의 멤버가 아닙니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(6): note: '_node' 선언을 참조하십시오.
+c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(114): error C2039: 'son': '_node'의 멤버가 아닙니다.
+  c:\users\moidp\synologydrive\sangwook\programing\datastruct\source\b_tree\b_tree\source.cpp(6): note: '_node' 선언을 참조하십시오.
