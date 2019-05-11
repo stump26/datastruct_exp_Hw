@@ -1,4 +1,5 @@
 //input={7 20 3 12 11 8 9 13 17 19 14 1 5 10 6 2 15 18 16 21}
+//input={1 7 1 20 1 3 1 12 1 11 1 8 1 9 1 13 1 17 1 19 1 14 1 1 1 5 1 10 1 6 1 2 1 15 1 18 1 16 1 21}
 #include<iostream>
 using namespace std;
 
@@ -25,9 +26,11 @@ class BTree {
 public:
 	Node *makeTree(int);
 	void insleaf(int,Node**);
+	void delNode(int, Node**);
 	void insnode(Node*, int, int, Node*);
 	void split(Node*, int, int, Node*, Node*, int*);
 	void copy(Node*, int, int, Node*);
+	void delkey(Node*, int,int);
 	int index(Node*);
 	int findpos(Node*,int);
 	Node *findnode(Node *,int);
@@ -37,22 +40,51 @@ void traverse(Node *);
 void node_print(Node *);
 
 int main() {
-	int input;
+	int input,mod;
 	BTree tree;
 	Node *root=NULL;
 	while (true) {
-		cout << "data>>";
-		cin >> input;
-		if (root == NULL) {
-			root = tree.makeTree(input);
-		}
-		else {
-			tree.insleaf(input, &root);
-		}
-		traverse(root);
-		cout << endl;
-	}
+		cout << "-----------" << endl;
+		cout << "1.삽입"<<endl;
+		cout << "2.삭제" << endl;
+		cout << "3.출력" << endl;
+		cout << "기능 선택 >> ";
+		cin >> mod;
 
+		switch (mod)
+		{
+		case 1:
+			cout << "data>>";
+			cin >> input;
+			if (root == NULL) {
+				root = tree.makeTree(input);
+			}
+			else {
+				tree.insleaf(input, &root);
+			}
+			break;
+		case 2:
+			cout << "data>>";
+			cin >> input;
+			if (root == NULL) {
+				cout << "ERROR!! empty tree" << endl;
+				break;
+			}
+			else {
+				tree.delNode(input, &root);
+			}
+			break;
+		case 3:
+			traverse(root);
+			cout << endl;
+			break;
+		default:
+			cout << "===!!오류!!====" << endl;
+			cout << "올바른 입력을 해주세요." << endl;
+			cout << "(1-3 내의 정수 입력)" << endl;
+			break;
+		}
+	}
 	return 0;
 }
 void BTree::copy(Node *nd1, int first, int last, Node* nd2) {
@@ -118,7 +150,7 @@ int BTree::index(Node *nd) {
 int BTree::findpos(Node *nd,int key) {
 	if (key < nd->k[0]) return 0;
 	for (int i = 0; i < nd->numkey; i++) {
-		if (key > nd->k[i] && key<nd->k[i+1]) {
+		if (key > nd->k[i] && key<=nd->k[i+1]) {
 			return i+1;
 		}
 	}
@@ -160,6 +192,25 @@ void BTree::insleaf(int key, Node** s){
 	tree->numtree = DEGREE / 2;
 	*s = tree;
 }
+void BTree::delNode(int key, Node** s){
+	Node* nd = findnode(*s, key);
+	int pos = findpos(nd, key);
+	if (nd->k[pos] != key) {
+		cout <<"Key("<<key<<") is not found."<<endl;
+	}
+	else {
+		delkey(nd,key,pos);
+		if (nd->numkey >= DEGREE / 2) {//언더플로우 없는경우
+			return;
+		}
+		else {//언더플로우있는경우
+			//형제노드가 numkey > n/2인경우
+			//형제노트가 numkey ==n/2인경우
+
+		}
+	}
+	
+}
 Node *BTree::makeTree(int key) {
 	Node *nd = new Node();
 	nd->father = NULL;
@@ -200,4 +251,16 @@ void node_print(Node *nd) {
 		}
 	}
 	cout << "}"<<nd->numtree;
+}
+void BTree::delkey(Node* nd, int key, int pos) {
+	int diff = nd->numkey - pos;
+	for (int i = 0; i < diff; i++) {
+		if (i + pos +1 < nd->numkey) {
+			nd->k[i + pos] = nd->k[i + pos + 1];
+		}
+		else {
+			nd->k[i + pos] = 0;
+		}
+	}
+	nd->numkey--;
 }
