@@ -1,6 +1,7 @@
 //input={7 20 3 12 11 8 9 13 17 19 14 1 5 10 6 2 15 18 16 21}
 //input={1 7 1 20 1 3 1 12 1 11 1 8 1 9 1 13 1 17 1 19 1 14 1 1 1 5 1 10 1 6 1 2 1 15 1 18 1 16 1 21}
 #include<iostream>
+#include<string>
 using namespace std;
 
 const static int DEGREE=5;
@@ -31,13 +32,16 @@ public:
 	void split(Node*, int, int, Node*, Node*, int*);
 	void copy(Node*, int, int, Node*);
 	void delkey(Node*, int,int);
+	void mergeNode(Node*, Node*, int,int);
+	int check_numTree(Node*);
 	int index(Node*);
 	int findpos(Node*,int);
 	Node *findnode(Node *,int);
+	void traverse(Node*);
+	string node_print(Node*);
 	BTree() {}
 };
-void traverse(Node *);
-void node_print(Node *);
+
 
 int main() {
 	int input,mod;
@@ -45,10 +49,10 @@ int main() {
 	Node *root=NULL;
 	while (true) {
 		cout << "-----------" << endl;
-		cout << "1.»ðÀÔ"<<endl;
-		cout << "2.»èÁ¦" << endl;
-		cout << "3.Ãâ·Â" << endl;
-		cout << "±â´É ¼±ÅÃ >> ";
+		cout << "1.ï¿½ï¿½ï¿½ï¿½"<<endl;
+		cout << "2.ï¿½ï¿½ï¿½ï¿½" << endl;
+		cout << "3.ï¿½ï¿½ï¿½" << endl;
+		cout << "ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ >> ";
 		cin >> mod;
 
 		switch (mod)
@@ -79,9 +83,9 @@ int main() {
 			cout << endl;
 			break;
 		default:
-			cout << "===!!¿À·ù!!====" << endl;
-			cout << "¿Ã¹Ù¸¥ ÀÔ·ÂÀ» ÇØÁÖ¼¼¿ä." << endl;
-			cout << "(1-3 ³»ÀÇ Á¤¼ö ÀÔ·Â)" << endl;
+			cout << "===!!ï¿½ï¿½ï¿½ï¿½!!====" << endl;
+			cout << "ï¿½Ã¹Ù¸ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½." << endl;
+			cout << "(1-3 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½)" << endl;
 			break;
 		}
 	}
@@ -108,26 +112,33 @@ void BTree::copy(Node *nd1, int first, int last, Node* nd2) {
 }
 void BTree::split(Node* nd, int pos, int newkey, Node* newnode, Node* nd2, int *midkey){
 	int ndiv2 = DEGREE / 2;
-	if (pos > ndiv2) {        /* newkey ´Â ³ëµå node(nd2)¿¡ ¼ÓÇÑ´Ù */
+	
+	if (pos > ndiv2) {        /* newkey ï¿½ï¿½ ï¿½ï¿½ï¿½ node(nd2)ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½ */
 		copy(nd, ndiv2 + 1, DEGREE - 1, nd2);
 		insnode(nd2, pos - ndiv2 - 1, newkey, newnode);
 		*midkey = nd->k[ndiv2];
 		nd->k[ndiv2] = 0;
 		nd->numkey--;
+		nd->numtree = check_numTree(nd);
+		nd2->numtree = check_numTree(nd2);
 		return;
 	}
-	if (pos == ndiv2) {      /* newkey °¡ Áß°£ Å°°¡ µÈ´Ù. */
+	if (pos == ndiv2) {      /* newkey ï¿½ï¿½ ï¿½ß°ï¿½ Å°ï¿½ï¿½ ï¿½È´ï¿½. */
 		copy(nd, ndiv2, DEGREE - 2, nd2);
 		nd2->son[0] = newnode;
 		*midkey = newkey;
+		nd->numtree = check_numTree(nd);
+		nd2->numtree = check_numTree(nd2);
 		return;
 	}
-	if (pos < ndiv2) {        /* newkey ´Â ³ëµå node(nd)¿¡ ¼ÓÇÑ´Ù. */
+	if (pos < ndiv2) {        /* newkey ï¿½ï¿½ ï¿½ï¿½ï¿½ node(nd)ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½. */
 		copy(nd, ndiv2, DEGREE - 2, nd2);
 		insnode(nd, pos, newkey, newnode);
 		*midkey = nd->k[ndiv2];
 		nd->k[ndiv2] = 0;
 		nd->numkey--;
+		nd->numtree = check_numTree(nd);
+		nd2->numtree = check_numTree(nd2);
 		return;
 	}
 }
@@ -161,24 +172,24 @@ void BTree::insleaf(int key, Node** s){
 	Node *newnode = NULL;
 	int newkey = key;
 	Node *f = nd->father;
-	//²ËÂù ³ëµå°¡ ·çÆ®³ëµå°¡ ¾Æ´ÑÁö È®ÀÎ
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½å°¡ ï¿½ï¿½Æ®ï¿½ï¿½å°¡ ï¿½Æ´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 	while (f != NULL && nd->numkey + 1 == DEGREE) {
 		Node *nd2 = new Node();
 		int midkey = nd->k[nd->numkey / 2];
 		split(nd, findpos(nd, key), newkey, newnode,nd2, &midkey);
-		f->numtree++;
+		f->numtree = check_numTree(f);
 		nd2->father = f;
 		newnode = nd2;
 		nd = f;
 		f = nd->father;
 		newkey = midkey;	
 	}
-	//³ëµå°¡ ²ËÂ÷Áö ¾ÊÀ½
+	//ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (nd->numkey < DEGREE-1) {
 		insnode(nd, findpos(nd,key), newkey, newnode);
 		return;
 	}
-	//·çÆ®³ëµå°¡ ²ËÂ÷ split ÈÄ »õ ·çÆ®³ëµå »ý¼º
+	//ï¿½ï¿½Æ®ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ split ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	Node *nd2 = new Node();
 	int midkey = nd->k[nd->numkey / 2];
 	split(nd, findpos(nd, key), newkey, newnode, nd2, &midkey);
@@ -189,9 +200,10 @@ void BTree::insleaf(int key, Node** s){
 	nd2->father = tree;
 	tree->son[0] = nd;
 	tree->son[1] = nd2;
-	tree->numtree = DEGREE / 2;
+	tree->numtree = check_numTree(tree);
 	*s = tree;
 }
+
 Node *BTree::makeTree(int key) {
 	Node *nd = new Node();
 	nd->father = NULL;
@@ -209,6 +221,20 @@ Node *BTree::findnode(Node *s,int key) {
 	}
 	return nd;
 }
+void BTree::traverse(Node* s) {
+	string* result = new string[];
+	result[0] = node_print(s);
+	if (s->numtree != 0) {
+		for (int i = 0; i < s->numtree; i++) {
+			Node* nd = s->son[i];
+			while (nd->numtree != 0) {
+
+			}
+		}
+	}
+
+}
+/*
 void traverse(Node *s) {
 	if (s->father == NULL) {
 		node_print(s);
@@ -223,15 +249,18 @@ void traverse(Node *s) {
 		if (s->son[i] != NULL)
 			traverse(s->son[i]);
 	}
-}
-void node_print(Node *nd) {
-	cout << "{";
+}*/
+string BTree::node_print(Node *nd) {
+	string print="";
+	print += "{";
 	for (int i = 0; i < DEGREE-1; i++) {
 		if (nd!=NULL && nd->k[i] != 0){
-			cout << nd->k[i]<<", ";
+			print += nd->k[i]+", ";
 		}
 	}
-	cout << "}"<<nd->numtree;
+	print += "}";
+
+	return print;
 }
 void BTree::delNode(int key, Node** s) {
 	Node* nd = findnode(*s, key);
@@ -241,19 +270,19 @@ void BTree::delNode(int key, Node** s) {
 	}
 	else {
 		delkey(nd, key, pos);
-		if (nd->numkey >= DEGREE / 2) {//¾ð´õÇÃ·Î¿ì ¾ø´Â°æ¿ì
+		if (nd->numkey >= DEGREE / 2) {//ï¿½ï¿½ï¿½ï¿½Ã·Î¿ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ï¿½
 			return;
 		}
-		else {//¾ð´õÇÃ·Î¿ìÀÖ´Â°æ¿ì
+		else {//ï¿½ï¿½ï¿½ï¿½Ã·Î¿ï¿½ï¿½Ö´Â°ï¿½ï¿½
 			int nd_pos;
 			Node* f=nd->father;
-			while (f!=NULL){
+			while (f!=NULL && nd->numkey <= DEGREE/2){
 				for (int i = 0; i < f->numtree; i++) {
 					if (nd == f->son[i]) { 
 						nd_pos = i; break; 
 					}
 				}
-				//numkey > n/2ÀÎ ¿À¸¥ÂÊ ÇüÁ¦³ëµåÁ¸Àç.
+				//numkey > n/2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 				if (f->numtree - 1 > nd_pos && f->son[nd_pos + 1]->numkey > DEGREE / 2) {
 					int shift_key = f->son[nd_pos+1]->k[0];
 					delkey(f->son[nd_pos+1], shift_key, 0);
@@ -264,7 +293,7 @@ void BTree::delNode(int key, Node** s) {
 
 					insnode(nd, nd->numkey, shift_key, NULL);
 				}
-				////numkey > n/2ÀÎ ¿ÞÂÊ ÇüÁ¦³ëµåÁ¸Àç.
+				////numkey > n/2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 				else if (nd_pos != 0 && f->son[nd_pos - 1]->numkey > DEGREE / 2) {
 					int shift_key = f->son[nd_pos - 1]->k[f->son[nd_pos - 1]->numkey-1];
 					delkey(f->son[nd_pos - 1], shift_key, f->son[nd_pos - 1]->numkey-1);
@@ -275,8 +304,21 @@ void BTree::delNode(int key, Node** s) {
 
 					insnode(nd, 0, shift_key, NULL);
 				}
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ f->son[nd_pos + 1]->numkey<=n/2
+				else if (f->numtree - 1> nd_pos && f->son[nd_pos+1]->numkey<=DEGREE/2) {
+					mergeNode(nd, f->son[nd_pos + 1], f->k[nd_pos],nd_pos+1);
+					delkey(f, f->k[nd_pos], nd_pos);
+				}
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ f->son[nd_pos - 1]->numkey <= n/2 
+				else if (nd_pos != 0 && f->son[nd_pos-1]->numkey<=DEGREE/2) {
+					mergeNode(f->son[nd_pos-1],nd, f->k[nd_pos-1],nd_pos+1);
+					delkey(f, f->k[nd_pos-1], nd_pos-1);
+				}
 				nd = f;
 				f = nd->father;
+			}
+			if ((*s)->numkey==0) {
+				*s = (*s)->son[0];
 			}
 		}
 	}
@@ -292,4 +334,26 @@ void BTree::delkey(Node* nd, int key, int pos) {
 		}
 	}
 	nd->numkey--;
+}
+void BTree::mergeNode(Node* nd, Node* nd2, int shiftkey,int pos) {
+	insnode(nd, nd->numkey, shiftkey, NULL);
+	for (int i = 0; i < nd2->numkey; i++) {
+		insnode(nd, nd->numkey, nd2->k[i], NULL);
+	}
+	for (int i = 0; i < nd2->numtree; i++) {
+		nd->son[nd->numtree] = nd2->son[i];
+		nd->numtree++;
+	}
+	for (int i = pos; i < nd->father->numtree-1;i++) {
+		nd->father->son[i] = nd->father->son[i + 1];
+	}
+	nd->father->numtree--;
+	nd->father->son[nd->father->numtree] = NULL;
+}
+int BTree::check_numTree(Node* nd){
+	int i = 0;
+	while (nd->son[i] != NULL) {
+		i++;
+	}
+	return i;
 }
