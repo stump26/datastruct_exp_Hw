@@ -148,7 +148,7 @@ int BTree::index(Node *nd) {
 	return -1;
 }
 int BTree::findpos(Node *nd,int key) {
-	if (key < nd->k[0]) return 0;
+	if (key <= nd->k[0]) return 0;
 	for (int i = 0; i < nd->numkey; i++) {
 		if (key > nd->k[i] && key<=nd->k[i+1]) {
 			return i+1;
@@ -192,25 +192,6 @@ void BTree::insleaf(int key, Node** s){
 	tree->numtree = DEGREE / 2;
 	*s = tree;
 }
-void BTree::delNode(int key, Node** s){
-	Node* nd = findnode(*s, key);
-	int pos = findpos(nd, key);
-	if (nd->k[pos] != key) {
-		cout <<"Key("<<key<<") is not found."<<endl;
-	}
-	else {
-		delkey(nd,key,pos);
-		if (nd->numkey >= DEGREE / 2) {//언더플로우 없는경우
-			return;
-		}
-		else {//언더플로우있는경우
-			//형제노드가 numkey > n/2인경우
-			//형제노트가 numkey ==n/2인경우
-
-		}
-	}
-	
-}
 Node *BTree::makeTree(int key) {
 	Node *nd = new Node();
 	nd->father = NULL;
@@ -251,6 +232,54 @@ void node_print(Node *nd) {
 		}
 	}
 	cout << "}"<<nd->numtree;
+}
+void BTree::delNode(int key, Node** s) {
+	Node* nd = findnode(*s, key);
+	int pos = findpos(nd, key);
+	if (nd->k[pos] != key) {
+		cout << "Key(" << key << ") is not found." << endl;
+	}
+	else {
+		delkey(nd, key, pos);
+		if (nd->numkey >= DEGREE / 2) {//언더플로우 없는경우
+			return;
+		}
+		else {//언더플로우있는경우
+			int nd_pos;
+			Node* f=nd->father;
+			while (f!=NULL){
+				for (int i = 0; i < f->numtree; i++) {
+					if (nd == f->son[i]) { 
+						nd_pos = i; break; 
+					}
+				}
+				//numkey > n/2인 오른쪽 형제노드존재.
+				if (f->numtree - 1 > nd_pos && f->son[nd_pos + 1]->numkey > DEGREE / 2) {
+					int shift_key = f->son[nd_pos+1]->k[0];
+					delkey(f->son[nd_pos+1], shift_key, 0);
+						
+					int tmp = f->k[nd_pos];
+					f->k[nd_pos] = shift_key;
+					shift_key = tmp;
+
+					insnode(nd, nd->numkey, shift_key, NULL);
+				}
+				////numkey > n/2인 왼쪽 형제노드존재.
+				else if (nd_pos != 0 && f->son[nd_pos - 1]->numkey > DEGREE / 2) {
+					int shift_key = f->son[nd_pos - 1]->k[f->son[nd_pos - 1]->numkey-1];
+					delkey(f->son[nd_pos - 1], shift_key, f->son[nd_pos - 1]->numkey-1);
+
+					int tmp = f->k[nd_pos-1];
+					f->k[nd_pos-1] = shift_key;
+					shift_key = tmp;
+
+					insnode(nd, 0, shift_key, NULL);
+				}
+				nd = f;
+				f = nd->father;
+			}
+		}
+	}
 }
 void BTree::delkey(Node* nd, int key, int pos) {
 	int diff = nd->numkey - pos;
